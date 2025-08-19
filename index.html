@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Data Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #4a6741);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-button:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h2::before {
+            content: '';
+            width: 4px;
+            height: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .section h2::before {
+            content: '';
+            width: 4px;
+            height: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .newsletter-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+        
+        .newsletter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .newsletter-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #51cf66, #40c057);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(81, 207, 102, 0.3);
+        }
+        
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .actions .btn {
+            margin: 0 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .targeting-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .targeting-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+        
+        .targeting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+        
+        .targeting-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .targeting-title:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .priority-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .priority-item label {
+            font-weight: 600;
+            color: #495057;
+            margin: 0;
+            min-width: 80px;
+        }
+        
+        .priority-item input {
+            flex: 1;
+            margin: 0;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .priority-item input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .priority-item button {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Newsletter Data Editor</h1>
+            <p>Edit newsletter configurations and targeting logic</p>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('newsletters', this)">Newsletter Data</button>
+                <button class="tab-button" onclick="showTab('targeting', this)">Targeting Logic</button>
+            </div>
+            
+            <div id="newsletters-tab" class="tab-content active">
+                <div class="section">
+                    <h2>Newsletter Configurations</h2>
+                    <div id="newsletter-list"></div>
+                    <button class="btn btn-primary" onclick="addNewsletter()">Add Newsletter</button>
+                </div>
+            </div>
+            
+            <div id="targeting-tab" class="tab-content">
+                <div class="section">
+                    <h2>Tags</h2>
+                    <div id="tags-list"></div>
+                    <button class="btn btn-primary" onclick="addTag()">Add Tag</button>
+                </div>
+                <div class="section">
+                    <h2>Verticals</h2>
+                    <div id="verticals-list"></div>
+                    <button class="btn btn-primary" onclick="addVertical()">Add Vertical</button>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-success" onclick="exportData()">Export JSON</button>
+                <button class="btn btn-primary" onclick="importData()">Import JSON</button>
+                <input type="file" id="file-input" accept=".json" style="display: none;" onchange="handleFileImport(event)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let targetingLogic = {};
+        let nlData = [];
+
+        // Initialize data
+        function initializeData() {
+            targetingLogic = {
+                tags: {
+                    "tdb podcast": {
+                        newsletterPriority: {
+                            1: "tdb pod"
+                        }
+                    }
+                },
+                verticals: {
+                    innovation: { newsletterPriority: { 1: "beast-digest" } },
+                    tech: { newsletterPriority: { 1: "beast-digest" } },
+                    world: { newsletterPriority: { 1: "beast-digest" } },
+                    culture: { newsletterPriority: { 1: "beast-digest" } },
+                    "us-news": { newsletterPriority: { 1: "cheat-sheet" } },
+                    trailers: { newsletterPriority: { 1: "entertainment" } },
+                    interview: { newsletterPriority: { 1: "entertainment" } },
+                    industry: { newsletterPriority: { 1: "entertainment" } },
+                    media: { newsletterPriority: { 1: "entertainment" } },
+                    "media-and-politics": { newsletterPriority: { 1: "the-swamp", 2: "politics" } },
+                    "hot-takes": { newsletterPriority: { 1: "tdb-obsessed" } },
+                    reviews: { newsletterPriority: { 1: "tdb-obsessed" } },
+                    recaps: { newsletterPriority: { 1: "tdb-obsessed" } },
+                    "what-to-watch": { newsletterPriority: { 1: "tdb-obsessed" } },
+                    rating: { newsletterPriority: { 1: "tdb-obsessed" } },
+                    "the-daily-beast-obsessed": { newsletterPriority: { 1: "tdb-obsessed" } },
+                    scouted: { newsletterPriority: { 1: "scouted" } }
+                }
+            };
+
+            nlData = [
+                {
+                    id: "the-swamp",
+                    name: "The Swamp",
+                    frequency: "Weekly",
+                    authorName: "",
+                    logoURL: "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/YGATAANYHJE5PC5WWCHQQRCONY.png",
+                    heading: "Sign Up for The Swamp Newsletter",
+                    description: "Must-know stories (and glorious gossip) from the D.C. mire.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["The Swamp"]
+                },
+                {
+                    id: "breaking-and-exclusive",
+                    name: "Breaking and Exclusive Alerts",
+                    frequency: "As Needed",
+                    authorName: "",
+                    logoURL: "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/CSXURAGHJ5GYVJRAVWOHXMFD2Q.png",
+                    heading: "Sign Up for Our Breaking and Exclusive Alerts",
+                    description: "Hear it here first. Get our biggest stories as they happen.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Breaking and Exclusive Alerts"]
+                },
+                {
+                    id: "tdb-obsessed",
+                    name: "Obsessed",
+                    frequency: "Weekly",
+                    authorName: "Kevin Fallon",
+                    logoURL: "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Obsessed.svg?d=179",
+                    heading: "Sign Up for Our Obsessed Newsletter",
+                    description: "Everything we cannot stop loving, hating, and thinking about this week in pop culture.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Obsessed"]
+                },
+                {
+                    id: "beast-digest",
+                    name: "Beast Digest",
+                    frequency: "Twice Daily",
+                    authorName: "",
+                    logoURL: "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/BeastDigest.svg?d=179",
+                    heading: "Sign Up for Our Beast Digest Newsletter",
+                    description: "Get our top stories delivered straight to your inbox.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["F List Daily Beast Newsletter AM", "G List Daily Beast Newsletter PM", "Weekend"]
+                },
+                {
+                    id: "cheat-sheet",
+                    name: "Cheat Sheet",
+                    frequency: "Twice Daily",
+                    authorName: "",
+                    logoURL: "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/CheatSheet.svg?d=179",
+                    heading: "Sign Up for Our Cheat Sheet Newsletter",
+                    description: "Get caught up in minutes with our speedy summary of must-read stories.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["C List New Cheat Sheet PM", "B List New Cheat Sheet AM"]
+                },
+                {
+                    id: "entertainment",
+                    name: "Entertainment",
+                    frequency: "Daily",
+                    authorName: "",
+                    logoURL: "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/KHQNQ7IYSNELBJLPEYBXDJFNNM.png",
+                    heading: "Sign Up for Our Entertainment Newsletter",
+                    description: "Stay on top of the latest celeb news, movies and TV shows.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Culture Beast"]
+                },
+                {
+                    id: "politics",
+                    name: "Politics",
+                    frequency: "Daily",
+                    authorName: "",
+                    logoURL: "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Politics.svg?d=179",
+                    heading: "Sign Up for Our Politics Newsletter",
+                    description: "Start your day with the sharpest takes on all things politics.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Politics"]
+                },
+                {
+                    id: "scouted",
+                    name: "Scouted",
+                    frequency: "Weekly",
+                    authorName: "",
+                    logoURL: "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Scouted.svg?d=179",
+                    heading: "Sign Up for Our Scouted Newsletter",
+                    description: "Internet shopping with a pulse.",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Scouted"]
+                },
+                {
+                    id: "daily-beast-pod",
+                    name: "Daily Beast Pod",
+                    frequency: "",
+                    authorName: "",
+                    logoURL: "",
+                    heading: "Sign Up for Our Daily Beast Pod Newsletter",
+                    description: "",
+                    submitBtnText: "Sign Up",
+                    sailThruIds: ["Daily Beast Podcast Updates"]
+                }
+            ];
+        }
+
+        function showTab(tabName, buttonElement) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            buttonElement.classList.add('active');
+            
+            if (tabName === 'newsletters') {
+                renderNewsletters();
+            } else if (tabName === 'targeting') {
+                renderTargeting();
+            }
+        }
+
+        function renderNewsletters() {
+            const container = document.getElementById('newsletter-list');
+            container.innerHTML = '';
+            
+            nlData.forEach((newsletter, index) => {
+                const newsletterDiv = document.createElement('div');
+                newsletterDiv.className = 'newsletter-item';
+                newsletterDiv.innerHTML = `
+                    <div class="newsletter-header">
+                        <div class="newsletter-title">${newsletter.name}</div>
+                        <button class="btn btn-danger" onclick="removeNewsletter(${index})">Remove</button>
+                    </div>
+                    <div class="grid">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" value="${newsletter.id}" placeholder="e.g., my-newsletter" onchange="updateNewsletter(${index}, 'id', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" value="${newsletter.name}" placeholder="e.g., My Weekly Newsletter" onchange="updateNewsletter(${index}, 'name', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Frequency</label>
+                            <input type="text" value="${newsletter.frequency}" placeholder="e.g., Daily, Weekly, Monthly" onchange="updateNewsletter(${index}, 'frequency', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Author Name</label>
+                            <input type="text" value="${newsletter.authorName}" placeholder="e.g., John Smith" onchange="updateNewsletter(${index}, 'authorName', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Logo URL</label>
+                            <input type="url" value="${newsletter.logoURL}" placeholder="https://example.com/logo.png" onchange="updateNewsletter(${index}, 'logoURL', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Heading</label>
+                            <input type="text" value="${newsletter.heading}" placeholder="e.g., Sign Up for Our Newsletter" onchange="updateNewsletter(${index}, 'heading', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea placeholder="Brief description of what subscribers can expect..." onchange="updateNewsletter(${index}, 'description', this.value)">${newsletter.description}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Submit Button Text</label>
+                        <input type="text" value="${newsletter.submitBtnText}" placeholder="e.g., Sign Up, Subscribe Now" onchange="updateNewsletter(${index}, 'submitBtnText', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>SailThru IDs (comma-separated)</label>
+                        <input type="text" value="${newsletter.sailThruIds.join(', ')}" placeholder="e.g., Newsletter List 1, Newsletter List 2" onchange="updateNewsletterSailThruIds(${index}, this.value)">
+                    </div>
+                `;
+                container.appendChild(newsletterDiv);
+            });
+        }
+
+        function renderTargeting() {
+            renderTags();
+            renderVerticals();
+        }
+
+        function renderTags() {
+            const container = document.getElementById('tags-list');
+            container.innerHTML = '';
+            
+            Object.entries(targetingLogic.tags).forEach(([tagName, tagData], index) => {
+                const tagDiv = document.createElement('div');
+                tagDiv.className = 'targeting-item';
+                
+                const prioritiesHtml = Object.entries(tagData.newsletterPriority)
+                    .map(([priority, newsletter]) => `
+                        <div class="priority-item">
+                            <label>Priority ${priority}:</label>
+                            <input type="text" value="${newsletter}" placeholder="e.g., newsletter-id, beast-digest" onchange="updateTagPriority('${tagName}', ${priority}, this.value)">
+                            <button class="btn btn-danger" onclick="removeTagPriority('${tagName}', ${priority})">Remove</button>
+                        </div>
+                    `).join('');
+                
+                tagDiv.innerHTML = `
+                    <div class="targeting-header">
+                        <input type="text" class="targeting-title" value="${tagName}" placeholder="e.g., podcast, breaking-news" onchange="updateTagName('${tagName}', this.value)">
+                        <button class="btn btn-danger" onclick="removeTag('${tagName}')">Remove Tag</button>
+                    </div>
+                    <div class="priorities-container">
+                        <h4 style="margin: 15px 0 10px 0; color: #495057; font-size: 1rem;">Newsletter Priority</h4>
+                        ${prioritiesHtml}
+                        <button class="btn btn-primary" onclick="addTagPriority('${tagName}')">Add Priority</button>
+                    </div>
+                `;
+                container.appendChild(tagDiv);
+            });
+        }
+
+        function renderVerticals() {
+            const container = document.getElementById('verticals-list');
+            container.innerHTML = '';
+            
+            Object.entries(targetingLogic.verticals).forEach(([verticalName, verticalData], index) => {
+                const verticalDiv = document.createElement('div');
+                verticalDiv.className = 'targeting-item';
+                
+                const prioritiesHtml = Object.entries(verticalData.newsletterPriority)
+                    .map(([priority, newsletter]) => `
+                        <div class="priority-item">
+                            <label>Priority ${priority}:</label>
+                            <input type="text" value="${newsletter}" placeholder="e.g., newsletter-id, entertainment" onchange="updateVerticalPriority('${verticalName}', ${priority}, this.value)">
+                            <button class="btn btn-danger" onclick="removeVerticalPriority('${verticalName}', ${priority})">Remove</button>
+                        </div>
+                    `).join('');
+                
+                verticalDiv.innerHTML = `
+                    <div class="targeting-header">
+                        <input type="text" class="targeting-title" value="${verticalName}" placeholder="e.g., tech, politics, entertainment" onchange="updateVerticalName('${verticalName}', this.value)">
+                        <button class="btn btn-danger" onclick="removeVertical('${verticalName}')">Remove Vertical</button>
+                    </div>
+                    <div class="priorities-container">
+                        <h4 style="margin: 15px 0 10px 0; color: #495057; font-size: 1rem;">Newsletter Priority</h4>
+                        ${prioritiesHtml}
+                        <button class="btn btn-primary" onclick="addVerticalPriority('${verticalName}')">Add Priority</button>
+                    </div>
+                `;
+                container.appendChild(verticalDiv);
+            });
+        }
+
+        function updateNewsletter(index, field, value) {
+            nlData[index][field] = value;
+            if (field === 'name') {
+                renderNewsletters();
+            }
+        }
+
+        function updateNewsletterSailThruIds(index, value) {
+            nlData[index].sailThruIds = value.split(',').map(id => id.trim()).filter(id => id);
+        }
+
+        function addNewsletter() {
+            const newNewsletter = {
+                id: "new-newsletter",
+                name: "New Newsletter",
+                frequency: "",
+                authorName: "",
+                logoURL: "",
+                heading: "Sign Up for Our New Newsletter",
+                description: "",
+                submitBtnText: "Sign Up",
+                sailThruIds: []
+            };
+            nlData.push(newNewsletter);
+            renderNewsletters();
+        }
+
+        // Tag management functions
+        function addTag() {
+            const tagName = prompt("Enter tag name:");
+            if (tagName && tagName.trim()) {
+                targetingLogic.tags[tagName.trim()] = {
+                    newsletterPriority: {
+                        1: "newsletter-id"
+                    }
+                };
+                renderTags();
+            }
+        }
+
+        function removeTag(tagName) {
+            if (confirm(`Are you sure you want to remove the tag "${tagName}"?`)) {
+                delete targetingLogic.tags[tagName];
+                renderTags();
+            }
+        }
+
+        function updateTagName(oldName, newName) {
+            if (newName && newName.trim() && newName !== oldName) {
+                targetingLogic.tags[newName] = targetingLogic.tags[oldName];
+                delete targetingLogic.tags[oldName];
+                renderTags();
+            }
+        }
+
+        function addTagPriority(tagName) {
+            const priorities = Object.keys(targetingLogic.tags[tagName].newsletterPriority).map(Number);
+            const nextPriority = Math.max(...priorities) + 1;
+            targetingLogic.tags[tagName].newsletterPriority[nextPriority] = "newsletter-id";
+            renderTags();
+        }
+
+        function removeTagPriority(tagName, priority) {
+            delete targetingLogic.tags[tagName].newsletterPriority[priority];
+            renderTags();
+        }
+
+        function updateTagPriority(tagName, priority, value) {
+            targetingLogic.tags[tagName].newsletterPriority[priority] = value;
+        }
+
+        // Vertical management functions
+        function addVertical() {
+            const verticalName = prompt("Enter vertical name:");
+            if (verticalName && verticalName.trim()) {
+                targetingLogic.verticals[verticalName.trim()] = {
+                    newsletterPriority: {
+                        1: "newsletter-id"
+                    }
+                };
+                renderVerticals();
+            }
+        }
+
+        function removeVertical(verticalName) {
+            if (confirm(`Are you sure you want to remove the vertical "${verticalName}"?`)) {
+                delete targetingLogic.verticals[verticalName];
+                renderVerticals();
+            }
+        }
+
+        function updateVerticalName(oldName, newName) {
+            if (newName && newName.trim() && newName !== oldName) {
+                targetingLogic.verticals[newName] = targetingLogic.verticals[oldName];
+                delete targetingLogic.verticals[oldName];
+                renderVerticals();
+            }
+        }
+
+        function addVerticalPriority(verticalName) {
+            const priorities = Object.keys(targetingLogic.verticals[verticalName].newsletterPriority).map(Number);
+            const nextPriority = Math.max(...priorities) + 1;
+            targetingLogic.verticals[verticalName].newsletterPriority[nextPriority] = "newsletter-id";
+            renderVerticals();
+        }
+
+        function removeVerticalPriority(verticalName, priority) {
+            delete targetingLogic.verticals[verticalName].newsletterPriority[priority];
+            renderVerticals();
+        }
+
+        function removeNewsletter(index) {
+            if (confirm('Are you sure you want to remove this newsletter?')) {
+                nlData.splice(index, 1);
+                renderNewsletters();
+            }
+        }
+
+        function exportData() {
+            const data = {
+                targetingLogic: targetingLogic,
+                nlData: nlData
+            };
+            
+            const jsonString = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'newsletter-data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            document.getElementById('file-input').click();
+        }
+
+        function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.targetingLogic) targetingLogic = data.targetingLogic;
+                    if (data.nlData) nlData = data.nlData;
+                    
+                    renderNewsletters();
+                    renderTargeting();
+                    alert('Data imported successfully!');
+                } catch (error) {
+                    alert('Error importing data: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeData();
+            renderNewsletters();
+            renderTargeting();
+        });
+    </script>
+</body>
+</html>

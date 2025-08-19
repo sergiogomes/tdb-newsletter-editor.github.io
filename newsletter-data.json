@@ -1,0 +1,222 @@
+{
+  "targetingLogic": {
+    "tags": {
+      "tdb podcast": {
+        "newsletterPriority": {
+          "1": "tdb pod",
+          "2": "tdb-test"
+        }
+      }
+    },
+    "verticals": {
+      "innovation": {
+        "newsletterPriority": {
+          "1": "beast-digest"
+        }
+      },
+      "tech": {
+        "newsletterPriority": {
+          "1": "beast-digest"
+        }
+      },
+      "world": {
+        "newsletterPriority": {
+          "1": "beast-digest"
+        }
+      },
+      "culture": {
+        "newsletterPriority": {
+          "1": "beast-digest"
+        }
+      },
+      "us-news": {
+        "newsletterPriority": {
+          "1": "cheat-sheet"
+        }
+      },
+      "trailers": {
+        "newsletterPriority": {
+          "1": "entertainment"
+        }
+      },
+      "interview": {
+        "newsletterPriority": {
+          "1": "entertainment"
+        }
+      },
+      "industry": {
+        "newsletterPriority": {
+          "1": "entertainment"
+        }
+      },
+      "media": {
+        "newsletterPriority": {
+          "1": "entertainment"
+        }
+      },
+      "media-and-politics": {
+        "newsletterPriority": {
+          "1": "the-swamp",
+          "2": "politics"
+        }
+      },
+      "hot-takes": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "reviews": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "recaps": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "what-to-watch": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "rating": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "the-daily-beast-obsessed": {
+        "newsletterPriority": {
+          "1": "tdb-obsessed"
+        }
+      },
+      "scouted": {
+        "newsletterPriority": {
+          "1": "scouted"
+        }
+      }
+    }
+  },
+  "nlData": [
+    {
+      "id": "the-swamp",
+      "name": "The Swamp",
+      "frequency": "Weekly",
+      "authorName": "",
+      "logoURL": "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/YGATAANYHJE5PC5WWCHQQRCONY.png",
+      "heading": "Sign Up for The Swamp Newsletter",
+      "description": "Must-know stories (and glorious gossip) from the D.C. mire.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "The Swamp"
+      ]
+    },
+    {
+      "id": "breaking-and-exclusive",
+      "name": "Breaking and Exclusive Alerts",
+      "frequency": "As Needed",
+      "authorName": "",
+      "logoURL": "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/CSXURAGHJ5GYVJRAVWOHXMFD2Q.png",
+      "heading": "Sign Up for Our Breaking and Exclusive Alerts",
+      "description": "Hear it here first. Get our biggest stories as they happen.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Breaking and Exclusive Alerts"
+      ]
+    },
+    {
+      "id": "tdb-obsessed",
+      "name": "Obsessed",
+      "frequency": "Weekly",
+      "authorName": "Kevin Fallon",
+      "logoURL": "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Obsessed.svg?d=179",
+      "heading": "Sign Up for Our Obsessed Newsletter",
+      "description": "Everything we cannot stop loving, hating, and thinking about this week in pop culture.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Obsessed"
+      ]
+    },
+    {
+      "id": "beast-digest",
+      "name": "Beast Digest",
+      "frequency": "Twice Daily",
+      "authorName": "",
+      "logoURL": "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/BeastDigest.svg?d=179",
+      "heading": "Sign Up for Our Beast Digest Newsletter",
+      "description": "Get our top stories delivered straight to your inbox.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "F List Daily Beast Newsletter AM",
+        "G List Daily Beast Newsletter PM",
+        "Weekend"
+      ]
+    },
+    {
+      "id": "cheat-sheet",
+      "name": "Cheat Sheet",
+      "frequency": "Twice Daily",
+      "authorName": "",
+      "logoURL": "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/CheatSheet.svg?d=179",
+      "heading": "Sign Up for Our Cheat Sheet Newsletter",
+      "description": "Get caught up in minutes with our speedy summary of must-read stories.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "C List New Cheat Sheet PM",
+        "B List New Cheat Sheet AM"
+      ]
+    },
+    {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "frequency": "Daily",
+      "authorName": "",
+      "logoURL": "https://cloudfront-us-east-1.images.arcpublishing.com/thedailybeast/KHQNQ7IYSNELBJLPEYBXDJFNNM.png",
+      "heading": "Sign Up for Our Entertainment Newsletter",
+      "description": "Stay on top of the latest celeb news, movies and TV shows.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Culture Beast"
+      ]
+    },
+    {
+      "id": "politics",
+      "name": "Politics",
+      "frequency": "Daily",
+      "authorName": "",
+      "logoURL": "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Politics.svg?d=179",
+      "heading": "Sign Up for Our Politics Newsletter",
+      "description": "Start your day with the sharpest takes on all things politics.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Politics"
+      ]
+    },
+    {
+      "id": "scouted",
+      "name": "Scouted",
+      "frequency": "Weekly",
+      "authorName": "",
+      "logoURL": "https://www.thedailybeast.com/pf/resources/svgs/newsletter/newsletter_logos/Scouted.svg?d=179",
+      "heading": "Sign Up for Our Scouted Newsletter",
+      "description": "Internet shopping with a pulse.",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Scouted"
+      ]
+    },
+    {
+      "id": "daily-beast-pod",
+      "name": "Daily Beast Pod",
+      "frequency": "",
+      "authorName": "",
+      "logoURL": "",
+      "heading": "Sign Up for Our Daily Beast Pod Newsletter",
+      "description": "",
+      "submitBtnText": "Sign Up",
+      "sailThruIds": [
+        "Daily Beast Podcast Updates"
+      ]
+    }
+  ]
+}
